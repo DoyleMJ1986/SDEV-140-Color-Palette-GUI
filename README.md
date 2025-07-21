@@ -4,3 +4,7 @@ value in range of 0 to 360 and S (Saturation) and V (Value, also known as Bright
 Cyan, Yellow, Magenta and Black and each value having a range of 0 to 100 as percentages. In the case where Black has a value of 100, all other colors have a value of 0) respectively
 2.) Buttons to copy the codes to the system clipboard for use in other applications
 3.) Buttons to invert the colors, based on each of the color palette systems (RGB, HSV and CYMK respectively).
+
+Changelog
+7/21/2025 
+This is the initial state of the program documentation, more detailed instructions will follow later. 
