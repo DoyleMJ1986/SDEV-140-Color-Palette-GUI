@@ -4,10 +4,12 @@ File Name: SDEV 140 Final Project Main
 Description: The main program module for the color palette GUI application. Takes the definitions laid out in
 DoyleMichaelSDEV140FinalProjectClasses.py and puts them to work, depending on user interactions.
 """
-
+# Tkinter is main GUI interface resource library
 import tkinter as tk
-# import pillow # for insertion of JPG and/or PNG files into the window elements
+# import PIL library for insertion of JPG and/or PNG files into the window elements
+from PIL import ImageTk, Image
 
+# The class which contains all objects necessary for program execution and operation
 class ColorPaletteApp(tk.Tk):
     def __init__(self):
         super().__init__()  # Call the constructor of the parent class (tk.Tk)"""
@@ -18,6 +20,12 @@ class ColorPaletteApp(tk.Tk):
         self.redLabel = tk.Label(self, text="Red Value", fg="red")
         self.redLabel.configure(bg="#a8e4a0")
         self.redLabel.pack(side='top', anchor='s')
+        self.redEntryLabel = tk.Label(self, text="Enter Red Value Here")
+        self.redEntryLabel.pack(side='top', fill='x')
+        self.redEntry = tk.Entry(self, state = "normal")
+        self.redEntry.pack(side='top', fill='x')
+        self.redEntryButton = tk.Button(self, text="Set Red", command=self.setRed)
+        self.redEntryButton.pack(side='top', fill='x')
         self.redSlider = tk.Scale(self, from_=0, to=255, orient="horizontal", command=self.calculateRGB)
         self.redSlider.configure(bg="#a8e4a0")
         self.redSlider.pack(side='top', anchor='s')
@@ -26,6 +34,11 @@ class ColorPaletteApp(tk.Tk):
         self.greenLabel = tk.Label(self, text="Green Value", fg="green")
         self.greenLabel.pack(side='left')
         self.greenLabel.configure(bg="#a8e4a0")
+        self.greenEntryLabel =tk.Label(self, text="Enter Green Value Here")
+        self.greenEntryLabel.pack(side='left', fill = 'x')
+        self.greenEntry = tk.Entry(self, state = "normal")
+        self.greenEntryButton = tk.Button(self, text="Set Green", command=self.setGreen)
+        self.greenEntryButton.pack(side='left')
         self.greenSlider = tk.Scale(self, from_=0, to=255, orient='horizontal', command=self.calculateRGB)
         self.greenSlider.configure(bg="#a8e4a0")
         self.greenSlider.pack(side='left')
@@ -33,6 +46,12 @@ class ColorPaletteApp(tk.Tk):
         # Blue Component
         self.blueLabel = tk.Label(self, text="Blue Value", fg="blue")
         self.blueLabel.pack(side='right')
+        self.blueEntryLabel = tk.Label(self, text="Enter Blue Value Here")
+        self.blueEntryLabel.pack(side='right')
+        self.blueEntry = tk.Entry(self, state = "normal")
+        self.blueEntry.pack(side='right')
+        self.blueEntrybutton = tk.Button(self, text="Set Blue", command=self.setBlue)
+        self.blueEntrybutton.pack(side='right')
         self.blueSlider = tk.Scale(self, from_=0, to=255, orient='horizontal', command=self.calculateRGB)
         self.blueSlider.pack(side='right')
 
@@ -88,7 +107,7 @@ class ColorPaletteApp(tk.Tk):
         self.quitButton.pack(side='bottom', anchor='s')
 
     # Calculate RGB Hex Code
-    def  calculateRGB(self, event):
+    def calculateRGB(self, event):
         # Accessing RGB color values from sliders
         r = self.redSlider.get()
         g = self.greenSlider.get()
@@ -101,8 +120,58 @@ class ColorPaletteApp(tk.Tk):
         self.rgbD.insert(0, hexColor)
         self.hsvD.configure(state='readonly')
 
+    # Get Value for Red from entry box and transfer it to the slider
+    def setRed(self):
+        try:
+            r = self.redEntry.get()
+            # Accept Numerical values from 0 to 255 only
+            if not r.isdigit():
+                raise ValueError
+            else:
+                # Convert only when the content is the right type
+                intR = int(r)
+                if intR < 0 or intR > 255:
+                    raise ValueError
+
+                else:
+                    # Set the value on the Green Slider to the value entered here
+                    self.redSlider.set(intR)
+        except ValueError:
+            self.redValueError = tk.Message(self, text= "ERROR! Please enter a numbner from 0 to 255")
+   # Get Value for Green from entry box and transfer it to the slider
+    def setGreen(self):
+        try:
+            g = self.greenEntry.get()
+            # Accept Numerical Values from 0 to 255 only
+            if not g.isdigit():
+                raise ValueError
+            else:
+                intG = int(g)
+                if intG < 0 or intG > 255
+                    raise ValueError
+                else:
+                # Set the Value on the Green Slider to the value entered here
+                    self.greenSlider.set(intG)
+        except ValueError:
+            self.greenValueError = tk.Message(self, text= "ERROR! Please enter a numbner from 0 to 255")
+
+    # Get Value for Green from entry box and transfer it to the slider
+    def setBlue(self):
+        try:
+            b = self.blueEntry.get()
+            # Accept Numerical Values fromn 0 to 255 only
+            if not b.isdigit():
+                raise ValueError
+            elif b < 0 or b > 255:
+                raise ValueError
+            else:
+                # Set the value on the Green Slider to the value entered here
+                self.greenSlider.set(intB)
+        except ValueError:
+            self.blueValueError = tk.Message(self, text= "ERROR! Please enter a numbner from 0 to 255")
+
         ## HSV Code Generation ##
-    def calculateHSV(self, event):
+    def calculateHSV(self, r, g, b):
         # Used in calculations for (hue, saturation, value) later
         colorHue = 0
         colorSaturation = 0
@@ -139,7 +208,7 @@ class ColorPaletteApp(tk.Tk):
         colorValue = colorMax * 100
         HSVValue = f"{colorHue:2x} {colorSaturation:2x} {colorValue:2x}"
         self.myCanvas.config(bg=HSVValue)
-    def calculateCYMK(self, event):
+    def calculateCYMK(self, r, g, b):
         r = self.redSlider.get()
         g = self.greenSlider.get()
         b = self.blueSlider.get()
@@ -193,10 +262,22 @@ class ColorPaletteApp(tk.Tk):
         cymkc = self.cymkD.get()
         self.clipboard_append(cymkc)
     # RGB Inversion
-    def rgbInvert(self):
+    def rgbInvert(self,r, g, b):
+        # Initial Values
         r = self.redSlider.get()
+        intR = int(r)
         g = self.greenSlider.get()
+        intG = int(g)
         b = self.blueSlider.get()
+        intB = int(b)
+
+        #RGB Inversion
+        invR = 255 - intR
+        invG = 255 - intG
+        invB = 255 - intB
+
+
+
     # HSV Inversion
     def hsvInvert(self):
         r = self.redSlider.get()
@@ -207,6 +288,8 @@ class ColorPaletteApp(tk.Tk):
         r = self.redSlider.get()
         g = self.greenSlider.get()
         b = self.blueSlider.get()
+
+# Main Program, executes only if ran as standalone
 if __name__ == '__main__':
     app = ColorPaletteApp()
     app.mainloop()
