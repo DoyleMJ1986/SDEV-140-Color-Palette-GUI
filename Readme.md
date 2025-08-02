@@ -12,3 +12,4 @@ CYMK: Short for Cyan, Yellow, Magenta and Black, this color scheme has extensive
 
 For each of the above codes, you can also copy the codes to the system clipboard with the press of a button, convert the RGB code represented by the current color into its corresponding HSV or CYMK codes, and invert the current color using either the RGB, HSV or CYMK color scales as the base for the inversion (yes, each of these types of inversions does produce a different result, so please take note). 
 
+The program also contains a second window accessed by a button on the main menu, which allows for creating average colors, based on input colors saved by two buttons located on the center right side of the interface.
