@@ -10,6 +10,6 @@ HSV: Short for Hue, Saturation and Value (also referred to as HSB or “Hue, Sat
 
 CYMK: Short for Cyan, Yellow, Magenta and Black, this color scheme has extensive use in printing applications, due to cyan, yellow, magenta and black being the colors of ink that full-color printers use in creating other colors (for non-color types, only black is supplied). The CYMK value is represented in the form (C, Y, M, K) where each of C, Y, M and K has a range of 0 to 100 in percents and all other color values are 0 when K (black) is 0. For example, the CYMK code for the RGB color #ae1081 is (317°, 91%, 68%)
 
-For each of the above codes, you can also copy the codes to the system clipboard with the press of a button, convert the RGB code represented by the current color into its corresponding HSV or CYMK codes, and invert the current color using either the RGB, HSV or CYMK color scales as the base for the inversion (yes, each of these types of inversions does produce a different result, so please take note). 
+For each of the above codes, you can also copy the codes to the system clipboard with the press of a button, convert the RGB code represented by the current color into its corresponding HSV or CYMK codes, and invert the current color using the RGB format as the reference point.
 
 The program also contains a second window accessed by a button on the main menu, which allows for creating average colors, based on input colors saved by two buttons located on the center right side of the interface.
